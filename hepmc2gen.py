@@ -76,10 +76,135 @@ process.generatorSmeared = cms.EDProducer("GaussEvtVtxGenerator",
     )
 process.load('Configuration.StandardSequences.Services_cff')
 process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService",
-        generatorSmeared  = cms.PSet( initialSeed = cms.untracked.uint32(options.randomSeed),
-            engineName = cms.untracked.string('TRandom3'),
-            ),
-        )
+    generatorSmeared  = cms.PSet( 
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed),
+    ),
+    CTPPSFastRecHits = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    LHCTransport = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    MuonSimHits = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    VtxSmeared = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    ecalPreshowerRecHit = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    ecalRecHit = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    externalLHEProducer = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    famosPileUp = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    fastSimProducer = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    fastTrackerRecHits = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    g4SimHits = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    generator = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    hbhereco = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    hfreco = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    hiSignal = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    hiSignalG4SimHits = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    hiSignalLHCTransport = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    horeco = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    l1ParamMuons = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    mix = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    mixData = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    mixGenPU = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    mixRecoTracks = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    mixSimCaloHits = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    paramMuons = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    simBeamSpotFilter = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    simMuonCSCDigis = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    simMuonDTDigis = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    simMuonGEMDigis = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    simMuonRPCDigis = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    ),
+    simSiStripDigiSimLink = cms.PSet(
+        engineName = cms.untracked.string('MixMaxRng'),
+        initialSeed = cms.untracked.uint32(options.randomSeed)
+    )
+)
 
 
 ###################
