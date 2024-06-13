@@ -1,0 +1,11 @@
+universe = vanilla
+error = $(outdir)/error.$(Process)
+log = $(outdir)/log.$(Process)
+output = $(outdir)/out.$(Process)
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+batch_name = instant_run $(outdir)
+executable = instant_run.sh
+arguments = $(outdir) $(Process)
+queue 100
+
