@@ -50,8 +50,8 @@ cmsswHltDir=$genToRecoBase/CMSSW_10_2_16_UL/src
 cmsswAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 cmsswMiniAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 
-nevents=200
-randomseed=$((8854+$2+$year))
+nevents=500
+randomseed=$((8854*$year+$2))
 
 echo -e "\nStart Sherpa\n"
 

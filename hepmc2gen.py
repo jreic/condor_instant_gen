@@ -33,7 +33,7 @@ process.source = cms.Source("MCFileSource",
 
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(-1))
 
-process.source.firstLuminosityBlockForEachRun = cms.untracked.VLuminosityBlockID(cms.LuminosityBlockID(1,1))
+process.source.firstLuminosityBlockForEachRun = cms.untracked.VLuminosityBlockID(cms.LuminosityBlockID(options.randomSeed,1))
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 process.MessageLogger.cerr.threshold = 'INFO'
