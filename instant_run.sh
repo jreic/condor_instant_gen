@@ -42,8 +42,9 @@ mkdir -p $myOutputDir
 
 sherpaDir=/users/h2/johnpaul/sherpa-v3.0.0beta1-run
 sherpaExe=/users/h2/johnpaul/sherpa-v3.0.0beta1-source/build/bin/Sherpa
-cmsswGenDir=/users/h2/johnpaul/cmssw/CMSSW_10_6_20_patch1
 genToRecoBase=/home/joey/gen_to_reco/suep-production
+
+cmsswGenDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 cmsswSimDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 # FIXME HLT dir is year dependent
 cmsswHltDir=$genToRecoBase/CMSSW_10_2_16_UL/src
@@ -73,7 +74,7 @@ export PATH="/cvmfs/oasis.opensciencegrid.org/mis/apptainer/1.2.5/bin:$PATH"
 #cmssw-el7 "--bind /condor --bind /osg --bind /cms --bind /home --bind /users" -- "source /home/joey/alma8_setups/setup_inside_cmssw-el7_apptainer.sh; cd $cmsswGenDir; cmsenv; cd $myOutputDir; cmsRun $cmsswGenDir/hepmc2gen.py inputFiles=file:$myOutputDir/out.hepevt2 randomSeed=$randomseed"
 
 
-gencmd="echo -e \"\nStart hepmc2 to GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun /home/joey/instantons/condor_instant_gen/hepmc2gen.py inputFiles=file:out.hepevt2 randomSeed=$randomseed; rm out.hepevt2"
+gencmd="echo -e \"\nStart hepmc2 to GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun /home/joey/instantons/condor_instant_gen/hepmc2gen.py inputFiles=file:out.hepevt2 randomSeed=$randomseed firstRun=$2; rm out.hepevt2"
 simcmd="echo -e \"\nStart GEN to SIMDIGI\n\"; cd $cmsswSimDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/sim-digi_pythia.py inputFiles=file:HepMC_GEN.root outputFile=simdigi.root; rm HepMC_GEN.root"
 hltcmd="echo -e \"\nStart SIMDIGI to HLT\n\"; cd $cmsswHltDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/hlt_pythia.py inputFiles=file:simdigi.root outputFile=hlt.root; rm simdigi.root"
 aodcmd="echo -e \"\nStart HLT to AOD\n\"; cd $cmsswAodDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/aod_pythia.py inputFiles=file:hlt.root outputFile=aod.root; rm hlt.root"

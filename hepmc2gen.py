@@ -21,8 +21,18 @@ options.register ('randomSeed',
     'random seed'
 )
 
+
+options.register('firstRun',
+    1,  #default value
+    VarParsing.multiplicity.singleton,
+    VarParsing.varType.int,
+    "the first run"
+)
+
+
 options.inputFiles = ['file:my_out.hepevt2']
 options.randomSeed = 1243987
+options.firstRun = 1
 options.parseArguments()
 
 process.source = cms.Source("MCFileSource",
@@ -33,7 +43,7 @@ process.source = cms.Source("MCFileSource",
 
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(-1))
 
-process.source.firstLuminosityBlockForEachRun = cms.untracked.VLuminosityBlockID(cms.LuminosityBlockID(options.randomSeed,1))
+process.source.firstLuminosityBlockForEachRun = cms.untracked.VLuminosityBlockID(cms.LuminosityBlockID(options.firstRun,1))
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 process.MessageLogger.cerr.threshold = 'INFO'
