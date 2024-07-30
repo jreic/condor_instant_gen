@@ -56,15 +56,25 @@ process.GEN = cms.OutputModule("PoolOutputModule",
 )
 
 
-
+# filter requiring three or more stable charged particles with pT > 1 GeV within our detector acceptance
 process.filter = cms.EDFilter("MCMultiParticleFilter",
-                              EtaMax = cms.vdouble(1.6, 1.6),
-                              Status = cms.vint32(1, 1),
-                              PtMin = cms.vdouble(7.0, 7.0),
-                              ParticleID = cms.vint32(13, -13),
-                              NumRequired = cms.int32(1),
+                              EtaMax = cms.vdouble(2.6, 2.6, 2.6, 2.6, 2.6, 2.6, 2.6, 2.6, 2.6, 2.6),
+                              Status = cms.vint32(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+                              PtMin = cms.vdouble(0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9),
+                              ParticleID = cms.vint32(13, -13, 11, -11, 211, -211, 321, -321, 2212, -2212),
+                              NumRequired = cms.int32(3),
                               AcceptMore = cms.bool(True),
 )
+
+# filter requiring at least one 7 GeV muon with |eta| < 1.6 - not using currently; would have been to directly trigger on instantons with muons in the final state
+#process.filter = cms.EDFilter("MCMultiParticleFilter",
+#                              EtaMax = cms.vdouble(1.6, 1.6),
+#                              Status = cms.vint32(1, 1),
+#                              PtMin = cms.vdouble(7.0, 7.0),
+#                              ParticleID = cms.vint32(13, -13),
+#                              NumRequired = cms.int32(1),
+#                              AcceptMore = cms.bool(True),
+#)
 
 process.filter.src = cms.untracked.InputTag("source","generator")
 
@@ -218,6 +228,6 @@ process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService
 
 
 ###################
-#process.p = cms.Path(process.filter * process.generatorSmeared * process.genParticles) # to apply muon filter (no longer our baseline plan)
-process.p = cms.Path(process.generatorSmeared * process.genParticles) # no filter
+process.p = cms.Path(process.filter * process.generatorSmeared * process.genParticles) # to apply muon filter (no longer our baseline plan)
+#process.p = cms.Path(process.generatorSmeared * process.genParticles) # no filter
 process.outpath = cms.EndPath(process.GEN)
