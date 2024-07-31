@@ -12,5 +12,5 @@ then
   exit 1
 fi
 
-mkdir $1; 
+mkdir -p $1/logs; 
 condor_submit outdir=$1 instant_run.jdl

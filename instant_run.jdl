@@ -1,7 +1,7 @@
 universe = vanilla
-error = $(outdir)/err.$(Process)
-log = $(outdir)/log.$(Process)
-output = $(outdir)/out.$(Process)
+error = $(outdir)/logs/err.$(Process)
+log = $(outdir)/logs/log.$(Process)
+output = $(outdir)/logs/out.$(Process)
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT_OR_EVICT
 batch_name = instant_run $(outdir)
@@ -9,5 +9,5 @@ executable = instant_run.sh
 x509userproxy = $ENV(X509_USER_PROXY)
 arguments = $(outdir) $(Process) $(x509userproxy)
 max_materialize = 200
-queue 5000
+queue 250
 
