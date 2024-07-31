@@ -228,6 +228,6 @@ process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService
 
 
 ###################
-process.p = cms.Path(process.filter * process.generatorSmeared * process.genParticles) # to apply muon filter (no longer our baseline plan)
+process.p = cms.Path(process.filter * process.generatorSmeared * process.genParticles) # to apply filter
 #process.p = cms.Path(process.generatorSmeared * process.genParticles) # no filter
 process.outpath = cms.EndPath(process.GEN)
