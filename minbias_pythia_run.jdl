@@ -1,13 +1,13 @@
 universe = vanilla
-error = $(outdir)/logs/err.$(Process)
-log = $(outdir)/logs/log.$(Process)
-output = $(outdir)/logs/out.$(Process)
+error = MinBias_13TeV_pythia8_TuneCUETP8M1_UL18_bParking_genfilt_3trk_1GeV/logs/err.$(Process)
+log = MinBias_13TeV_pythia8_TuneCUETP8M1_UL18_bParking_genfilt_3trk_1GeV/logs/log.$(Process)
+output = MinBias_13TeV_pythia8_TuneCUETP8M1_UL18_bParking_genfilt_3trk_1GeV/logs/out.$(Process)
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT_OR_EVICT
 batch_name = minbias_pythia_run $(outdir)
 executable = minbias_pythia_run.sh
 x509userproxy = $ENV(X509_USER_PROXY)
 arguments = $(outdir) $(Process) $(x509userproxy)
-max_materialize = 200
++JobFlavour = "tomorrow"
 queue 2000
 
