@@ -1,0 +1,13 @@
+universe = vanilla
+error = QCD_Pt10_13TeV_pythia8_TuneCUETP8M1_genfilt_3trk_1GeV_UL18_bParking/logs/err.$(Process)
+log = QCD_Pt10_13TeV_pythia8_TuneCUETP8M1_genfilt_3trk_1GeV_UL18_bParking/logs/log.$(Process)
+output = QCD_Pt10_13TeV_pythia8_TuneCUETP8M1_genfilt_3trk_1GeV_UL18_bParking/logs/out.$(Process)
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT_OR_EVICT
+batch_name = qcd_pythia_run $(outdir)
+executable = qcd_pythia_run.sh
+x509userproxy = $ENV(X509_USER_PROXY)
+arguments = $(outdir) $(Process) $(x509userproxy)
++JobFlavour = "tomorrow"
+queue 2000
+

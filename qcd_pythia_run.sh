@@ -2,14 +2,14 @@
 
 if [ -z "$1" ]
 then
-  echo "Usage: ./minbias_pythia_run.sh path/to/base/output/dir/ integer_subdirectory_index"
+  echo "Usage: ./qcd_pythia_run.sh path/to/base/output/dir/ integer_subdirectory_index"
   exit 1
 fi
 
 if [[ $2 != +([0-9]) ]];
 then
   echo "integer_subdirectory_index must be an integer value (it's used to set the unique random seed)"
-  echo "Usage: ./minbias_pythia_run.sh path/to/base/output/dir/ integer_subdirectory_index"
+  echo "Usage: ./qcd_pythia_run.sh path/to/base/output/dir/ integer_subdirectory_index"
   exit 1
 fi
 
@@ -57,8 +57,8 @@ randomseed=$((973*$year+$2))
 source /cvmfs/cms.cern.ch/cmsset_default.sh;
 #export PATH="/cvmfs/oasis.opensciencegrid.org/mis/apptainer/1.2.5/bin:$PATH"
 
-gencmd="echo -e \"\nStart GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun $genToRecoBase/test/minbias/minbias_pythia_gen_with_filter.py seed=$randomseed firstRun=$(($2+1)) maxEvents=$nevents outputFile=minbias_gen.root"
-simcmd="echo -e \"\nStart GEN to SIMDIGI\n\"; cd $cmsswSimDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/sim-digi_pythia.py inputFiles=file:minbias_gen_numEvent${nevents}.root outputFile=simdigi.root; rm minbias_gen_numEvent${nevents}.root"
+gencmd="echo -e \"\nStart GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun $genToRecoBase/test/qcd/QCD_Pt_10_TuneCUETP8M1_13TeV_pythia8_gen_with_filter.py seed=$randomseed firstRun=$(($2+1)) maxEvents=$nevents outputFile=qcd_pt10_gen.root"
+simcmd="echo -e \"\nStart GEN to SIMDIGI\n\"; cd $cmsswSimDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/sim-digi_pythia.py inputFiles=file:qcd_pt10_gen_numEvent${nevents}.root outputFile=simdigi.root; rm qcd_pt10_gen_numEvent${nevents}.root"
 hltcmd="echo -e \"\nStart SIMDIGI to HLT\n\"; cd $cmsswHltDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/hlt_pythia.py inputFiles=file:simdigi.root outputFile=hlt.root; rm simdigi.root"
 aodcmd="echo -e \"\nStart HLT to AOD\n\"; cd $cmsswAodDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/aod_pythia.py inputFiles=file:hlt.root outputFile=aod.root; rm hlt.root"
 miniaodcmd="echo -e \"\nStart AOD to MiniAOD\n\"; cd $cmsswMiniAodDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/miniaod_pythia.py inputFiles=file:aod.root outputFile=miniaod.root; rm aod.root; mv miniaod.root $myOutputDir"
