@@ -2,14 +2,14 @@
 
 if [ -z "$1" ]
 then
-  echo "Usage: ./minbias_pythia_run.sh path/to/base/output/dir/ integer_subdirectory_index"
+  echo "Usage: ./instant_run.sh path/to/base/output/dir/ integer_subdirectory_index"
   exit 1
 fi
 
 if [[ $2 != +([0-9]) ]];
 then
   echo "integer_subdirectory_index must be an integer value (it's used to set the unique random seed)"
-  echo "Usage: ./minbias_pythia_run.sh path/to/base/output/dir/ integer_subdirectory_index"
+  echo "Usage: ./instant_run.sh path/to/base/output/dir/ integer_subdirectory_index"
   exit 1
 fi
 
@@ -41,6 +41,8 @@ yearStr="UL18_bParking"
 myOutputDir=$1/$2
 mkdir -p $myOutputDir
 
+sherpaDir=/users/h2/johnpaul/sherpa-v3.0.0beta1-run
+sherpaExe=/home/joey/physics/sherpa_alma8/sherpa-v3.0.0-source/build/bin/Sherpa
 genToRecoBase=/home/joey/physics/gen_to_reco/suep-production
 
 cmsswGenDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
@@ -51,14 +53,26 @@ cmsswAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 cmsswMiniAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 
 nevents=1000
-randomseed=$((973*$year+$2))
+randomseed=$((14850*$year+$2))
+
+
+echo -e "\nStart Sherpa\n"
+
+# FIXME We'll probably want multiple yaml files for different parameters (e.g. mass points, in the future)
+#$sherpaExe $sherpaDir/Instanton.yaml -g -e $nevents -R $randomseed
+$sherpaExe /home/joey/physics/instantons/condor_instant_gen/Instanton_altscale.yaml -g -e $nevents -R $randomseed
+
+
+echo -e "\nStart hepmc3 to hepmc2 conversion\n"
+/home/joey/physics/HepMC3Convert/build/outputs/convert_example.exe -i hepmc3 -o hepmc2 out.hepevt out.hepevt2; rm out.hepevt
+
 
 # setups needed for apptainer
 source /cvmfs/cms.cern.ch/cmsset_default.sh;
 export PATH="/cvmfs/oasis.opensciencegrid.org/mis/apptainer/1.2.5/bin:$PATH"
 
-gencmd="echo -e \"\nStart GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun /home/joey/physics/gen_to_reco/suep-production/test/minbias/minbias_pythia_gen_with_filter.py seed=$randomseed firstRun=$(($2+1)) maxEvents=$nevents outputFile=minbias_gen.root"
-simcmd="echo -e \"\nStart GEN to SIMDIGI\n\"; cd $cmsswSimDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/sim-digi_pythia.py inputFiles=file:minbias_gen_numEvent${nevents}.root outputFile=simdigi.root; rm minbias_gen_numEvent${nevents}.root"
+gencmd="echo -e \"\nStart hepmc2 to GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun /home/joey/physics/instantons/condor_instant_gen/hepmc2gen.py inputFiles=file:out.hepevt2 randomSeed=$randomseed firstRun=$(($2+1)); rm out.hepevt2"
+simcmd="echo -e \"\nStart GEN to SIMDIGI\n\"; cd $cmsswSimDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/sim-digi_pythia.py inputFiles=file:HepMC_GEN.root outputFile=simdigi.root; rm HepMC_GEN.root"
 hltcmd="echo -e \"\nStart SIMDIGI to HLT\n\"; cd $cmsswHltDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/hlt_pythia.py inputFiles=file:simdigi.root outputFile=hlt.root; rm simdigi.root"
 aodcmd="echo -e \"\nStart HLT to AOD\n\"; cd $cmsswAodDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/aod_pythia.py inputFiles=file:hlt.root outputFile=aod.root; rm hlt.root"
 miniaodcmd="echo -e \"\nStart AOD to MiniAOD\n\"; cd $cmsswMiniAodDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/miniaod_pythia.py inputFiles=file:aod.root outputFile=miniaod.root; rm aod.root; mv miniaod.root $myOutputDir"

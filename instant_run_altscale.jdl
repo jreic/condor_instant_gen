@@ -4,10 +4,10 @@ log = $(outdir)/logs/log.$(Process)
 output = $(outdir)/logs/out.$(Process)
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT_OR_EVICT
-batch_name = instant_run $(outdir)
-executable = instant_run.sh
+batch_name = instant_run_altscale $(outdir)
+executable = instant_run_altscale.sh
 x509userproxy = $ENV(X509_USER_PROXY)
 arguments = $(outdir) $(Process) $(x509userproxy)
-max_materialize = 100
-queue 2500
+max_materialize = 50
+queue 1600
 

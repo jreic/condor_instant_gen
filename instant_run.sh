@@ -35,7 +35,7 @@ cd myTmpDir_$timestamp
 #year=2017
 year=2018
 # FIXME add a year string conversion to turn 2018 into UL18 for other purposes downstream--only matters if we ever run over more than just 2018 B parked data
-yearStr="UL18"
+yearStr="UL18_bParking"
 
 # FIXME I currently set a different output folder for each job based on the $2 number, but could move it into the input/output file names too. Maybe fine as-is, but can think more.
 myOutputDir=$1/$2
@@ -52,14 +52,15 @@ cmsswHltDir=$genToRecoBase/CMSSW_10_2_16_UL/src
 cmsswAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 cmsswMiniAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 
-nevents=500
+nevents=1000
 randomseed=$((14850*$year+$2))
 
 
 echo -e "\nStart Sherpa\n"
 
 # FIXME We'll probably want multiple yaml files for different parameters (e.g. mass points, in the future)
-$sherpaExe $sherpaDir/Instanton.yaml -g -e $nevents -R $randomseed
+#$sherpaExe $sherpaDir/Instanton.yaml -g -e $nevents -R $randomseed
+$sherpaExe /home/joey/physics/instantons/condor_instant_gen/Instanton.yaml -g -e $nevents -R $randomseed
 
 
 echo -e "\nStart hepmc3 to hepmc2 conversion\n"

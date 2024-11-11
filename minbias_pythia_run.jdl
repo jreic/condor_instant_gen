@@ -8,6 +8,6 @@ batch_name = minbias_pythia_run $(outdir)
 executable = minbias_pythia_run.sh
 x509userproxy = $ENV(X509_USER_PROXY)
 arguments = $(outdir) $(Process) $(x509userproxy)
-max_materialize = 200
+max_materialize = 60
 queue 2000
 
