@@ -57,7 +57,7 @@ randomseed=$((973*$year+$2))
 source /cvmfs/cms.cern.ch/cmsset_default.sh;
 #export PATH="/cvmfs/oasis.opensciencegrid.org/mis/apptainer/1.2.5/bin:$PATH"
 
-gencmd="echo -e \"\nStart GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun $genToRecoBase/test/minbias/minbias_pythia_gen_with_filter.py seed=$randomseed firstRun=$(($2+1)) maxEvents=$nevents outputFile=minbias_gen.root"
+gencmd="echo -e \"\nStart GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun $genToRecoBase/test/minbias/minbias_CP5_pythia_gen_with_filter.py seed=$randomseed firstRun=$(($2+1)) maxEvents=$nevents outputFile=minbias_gen.root"
 simcmd="echo -e \"\nStart GEN to SIMDIGI\n\"; cd $cmsswSimDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/sim-digi_pythia.py inputFiles=file:minbias_gen_numEvent${nevents}.root outputFile=simdigi.root; rm minbias_gen_numEvent${nevents}.root"
 hltcmd="echo -e \"\nStart SIMDIGI to HLT\n\"; cd $cmsswHltDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/hlt_pythia.py inputFiles=file:simdigi.root outputFile=hlt.root; rm simdigi.root"
 aodcmd="echo -e \"\nStart HLT to AOD\n\"; cd $cmsswAodDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/aod_pythia.py inputFiles=file:hlt.root outputFile=aod.root; rm hlt.root"
