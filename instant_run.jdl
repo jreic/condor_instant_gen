@@ -9,5 +9,5 @@ executable = instant_run.sh
 x509userproxy = $ENV(X509_USER_PROXY)
 arguments = $(outdir) $(Process) $(x509userproxy)
 +JobFlavour = "tomorrow"
-queue 5000
+queue 15000
 
