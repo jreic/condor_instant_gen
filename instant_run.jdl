@@ -1,7 +1,7 @@
 universe = vanilla
-error = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext4/err/err.$(Process)
-log = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext4/logs/log.$(Process)
-output = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext4/out/out.$(Process)
+error = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext5/err/err.$(Process)
+log = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext5/logs/log.$(Process)
+output = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext5/out/out.$(Process)
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT_OR_EVICT
 batch_name = instant_run $(outdir)
@@ -9,6 +9,6 @@ executable = instant_run.sh
 x509userproxy = $ENV(X509_USER_PROXY)
 arguments = $(outdir) $(Process) $(x509userproxy)
 +JobFlavour = "tomorrow"
-max_materialize = 1500
+max_materialize = 2500
 queue 5000
 
