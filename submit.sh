@@ -13,4 +13,4 @@ then
 fi
 
 mkdir -p $1/logs; 
-condor_submit -spool outdir=$1 instant_run.jdl
+condor_submit outdir=$1 instant_run.jdl
