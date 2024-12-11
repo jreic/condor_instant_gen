@@ -1,7 +1,7 @@
 universe = vanilla
-error = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext13/err/err.$(Process)
-log = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext13/logs/log.$(Process)
-output = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext13/out/out.$(Process)
+error = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext15/err/err.$(Process)
+log = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext15/logs/log.$(Process)
+output = instanton_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext15/out/out.$(Process)
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT_OR_EVICT
 batch_name = instant_run $(outdir)
