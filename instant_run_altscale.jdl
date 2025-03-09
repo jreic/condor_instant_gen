@@ -1,13 +1,15 @@
 universe = vanilla
-error = $(outdir)/logs/err.$(Process)
-log = $(outdir)/logs/log.$(Process)
-output = $(outdir)/logs/out.$(Process)
+log = /eos/user/j/jreicher/SUEP/instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext1/logs/log.$(Process)
+error = instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext1/err/err.$(Process)
+output = instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext1/out/out.$(Process)
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT_OR_EVICT
 batch_name = instant_run_altscale $(outdir)
 executable = instant_run_altscale.sh
 x509userproxy = $ENV(X509_USER_PROXY)
+RequestDisk = 4000000
 arguments = $(outdir) $(Process) $(x509userproxy)
-max_materialize = 50
-queue 1600
++JobFlavour = "tomorrow"
+max_materialize = 2000
+queue 5000
 
