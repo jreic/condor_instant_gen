@@ -41,7 +41,7 @@ yearStr="UL18_bParking"
 myOutputDir=$1/$2
 mkdir -p $myOutputDir
 
-genToRecoBase=/afs/cern.ch/user/j/jreicher/workdir/public/SUEP_WH/suep-production
+genToRecoBase=/afs/cern.ch/user/j/jreicher/workdir/public/instantons/genToReco/suep-production
 
 cmsswGenDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 cmsswSimDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
