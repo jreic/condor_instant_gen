@@ -1,7 +1,7 @@
 universe = vanilla
-log = /eos/user/j/jreicher/SUEP/instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext5/logs/log.$(Process)
-error = instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext5/err/err.$(Process)
-output = instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext5/out/out.$(Process)
+log = /eos/user/j/jreicher/SUEP/instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext6/logs/log.$(Process)
+error = instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext6/err/err.$(Process)
+output = instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext6/out/out.$(Process)
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT_OR_EVICT
 batch_name = instant_run_altscale $(outdir)
