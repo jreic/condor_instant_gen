@@ -29,6 +29,9 @@ fi
 timestamp="`date +%s`"
 mkdir myTmpDir_$timestamp
 cd myTmpDir_$timestamp
+myBaseDir=$PWD
+
+tar -zxvf input.tar.gz
 
 #year=20161
 #year=20162
@@ -41,8 +44,8 @@ yearStr="UL18_bParking"
 myOutputDir=$1/$2
 mkdir -p $myOutputDir
 
-sherpaExe=/afs/cern.ch/user/j/jreicher/workdir/public/instantons/sherpa/sherpa-v3.0.0-source/build/bin/Sherpa
-genToRecoBase=/afs/cern.ch/user/j/jreicher/workdir/public/instantons/genToReco/suep-production
+sherpaExe=$myBaseDir/Sherpa
+genToRecoBase=$myBaseDir/suep-production
 
 cmsswGenDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 cmsswSimDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
@@ -52,23 +55,23 @@ cmsswAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 cmsswMiniAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 
 nevents=2500
-randomseed=$((983*$year+$2))
+randomseed=$((1003*$year+$2))
 
 
 echo -e "\nStart Sherpa\n"
 
 # FIXME We'll probably want multiple yaml files for different parameters (e.g. mass points, in the future)
-$sherpaExe /afs/cern.ch/user/j/jreicher/workdir/public/instantons/condor_instant_gen/Instanton_altscale.yaml -g -e $nevents -R $randomseed
+$sherpaExe $myBaseDir/Instanton_altscale.yaml -g -e $nevents -R $randomseed
 
 
 echo -e "\nStart hepmc3 to hepmc2 conversion\n"
-/afs/cern.ch/user/j/jreicher/workdir/public/instantons/HepMC3Convert/build/outputs/convert_example.exe -i hepmc3 -o hepmc2 out.hepevt out.hepevt2; rm out.hepevt
+$myBaseDir/outputs/convert_example.exe -i hepmc3 -o hepmc2 out.hepevt out.hepevt2; rm out.hepevt
 
 
 # setups needed for apptainer
 source /cvmfs/cms.cern.ch/cmsset_default.sh;
 
-gencmd="echo -e \"\nStart hepmc2 to GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun /afs/cern.ch/user/j/jreicher/workdir/public/instantons/condor_instant_gen/hepmc2gen.py inputFiles=file:out.hepevt2 randomSeed=$randomseed firstRun=$(($2+1)); rm out.hepevt2"
+gencmd="echo -e \"\nStart hepmc2 to GEN\n\"; cd $cmsswGenDir; cmsenv; cd -; cmsRun $myBaseDir/hepmc2gen.py inputFiles=file:out.hepevt2 randomSeed=$randomseed firstRun=$(($2+1)); rm out.hepevt2"
 simcmd="echo -e \"\nStart GEN to SIMDIGI\n\"; cd $cmsswSimDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/sim-digi_pythia.py inputFiles=file:HepMC_GEN.root outputFile=simdigi.root; rm HepMC_GEN.root"
 hltcmd="echo -e \"\nStart SIMDIGI to HLT\n\"; cd $cmsswHltDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/hlt_pythia.py inputFiles=file:simdigi.root outputFile=hlt.root; rm simdigi.root"
 aodcmd="echo -e \"\nStart HLT to AOD\n\"; cd $cmsswAodDir; cmsenv; cd -; cmsRun $genToRecoBase/test/$yearStr/aod_pythia.py inputFiles=file:hlt.root outputFile=aod.root; rm hlt.root"

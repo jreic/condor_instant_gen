@@ -13,4 +13,12 @@ then
 fi
 
 mkdir -p $1/logs; 
+
+genToReco=/afs/cern.ch/user/j/jreicher/workdir/public/instantons/genToReco/
+cp hepmc2gen.py $genToReco
+cp Instanton_altscale.yaml $genToReco
+cp /afs/cern.ch/user/j/jreicher/workdir/public/instantons/sherpa/sherpa-v3.0.0-source/build/bin/Sherpa $genToReco
+cp /afs/cern.ch/user/j/jreicher/workdir/public/instantons/HepMC3Convert/build/outputs/convert_example.exe $genToReco
+
+tar -czvf $1/input.tar.gz -C /afs/cern.ch/user/j/jreicher/workdir/public/instantons/genToReco .
 condor_submit outdir=$1 instant_run_altscale.jdl
