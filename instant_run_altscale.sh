@@ -31,7 +31,8 @@ mkdir myTmpDir_$timestamp
 cd myTmpDir_$timestamp
 myBaseDir=$PWD
 
-tar -zxvf input.tar.gz
+xrdcp root://eosuser.cern.ch/$1/input.tar.gz .
+tar -zxvf $1/input.tar.gz
 
 #year=20161
 #year=20162
@@ -65,7 +66,7 @@ $sherpaExe $myBaseDir/Instanton_altscale.yaml -g -e $nevents -R $randomseed
 
 
 echo -e "\nStart hepmc3 to hepmc2 conversion\n"
-$myBaseDir/outputs/convert_example.exe -i hepmc3 -o hepmc2 out.hepevt out.hepevt2; rm out.hepevt
+$myBaseDir/convert_example.exe -i hepmc3 -o hepmc2 out.hepevt out.hepevt2; rm out.hepevt
 
 
 # setups needed for apptainer
