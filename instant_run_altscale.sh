@@ -56,7 +56,7 @@ cmsswAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 cmsswMiniAodDir=$genToRecoBase/CMSSW_10_6_30_patch1/src
 
 nevents=2500
-randomseed=$((1003*$year+$2))
+randomseed=$((983*$year+$2))
 
 
 echo -e "\nStart Sherpa\n"
