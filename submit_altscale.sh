@@ -13,6 +13,7 @@ then
 fi
 
 mkdir $1
+mkdir $1/logs; 
 
 genToReco=/afs/cern.ch/user/j/jreicher/workdir/public/instantons/genToReco/
 cp hepmc2gen.py $genToReco
@@ -23,7 +24,6 @@ cp /afs/cern.ch/user/j/jreicher/workdir/public/instantons/HepMC3Convert/build/ou
 #tarDir=`basename $1`
 #mkdir $tarDir
 #cd $tarDir
-#mkdir logs; 
 #mkdir err; 
 #mkdir out; 
 

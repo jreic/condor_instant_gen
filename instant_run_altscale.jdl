@@ -1,5 +1,5 @@
 universe = vanilla
-log = instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext13/logs/log.$(Process)
+log = /eos/user/j/jreicher/SUEP/instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext13/logs/log.$(Process)
 #error = instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext13/err/err.$(Process)
 #output = instanton_altscale_20GeV_UL18_bParking_Sherpa3_0_0_genfilt_3trk_1GeV_ext13/out/out.$(Process)
 should_transfer_files = YES
